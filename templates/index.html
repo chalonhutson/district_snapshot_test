@@ -4,28 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Document</title>
+    <title>District Employees</title>
 </head>
 <body>
     <main>
-        <h1>View Employees</h1>
-
+        <h1>Search District Employees</h1>
+<!-- 
         <form action="{{ url_for('index') }}" method="get">
             <input type="text" name="search_first_name" placeholder="Search by first name..." value="{{ search_first_name }}">
             <input type="text" name="search_last_name" placeholder="Search by last name..." value="{{ search_last_name }}">
             <input type="text" name="search_position" placeholder="Search by position..." value="{{ search_position }}">
+            {{ form.district.label }} {{ form.district }}
             <button type="submit">Search</button>
+        </form> -->
+        
+        <form id="searchForm" action="{{ url_for('index') }}" method="get">
+            <div class="searchInfoContainer">
+                <div class="searchFormSection">
+                    <span class="searchItem">
+                        {{ form.search_first_name.label }} {{ form.search_first_name(placeholder="Search by first name...", id="firstName") }}
+                    </span>
+                    <span class="searchItem">
+                        {{ form.search_last_name.label }} {{ form.search_last_name(placeholder="Search by last name...", id="lastName") }}
+                    </span>
+                    <span class="searchItem">
+                        {{ form.search_position.label }} {{ form.search_position(placeholder="Search by position...", id="position") }}
+                    </span>
+                </div>
+                <div class="searchFormSection">
+                    <span class="searchItem">
+                        {{ form.district.label }} {{ form.district(id="district") }}
+                    </span>
+                    <span class="searchItem">
+                        {{ form.page_limit.label }} {{ form.page_limit(id="pageLimit") }}
+                    </span>
+                    <span>
+                        <button type="submit">Search</button>
+                    </span>
+                </div>
+            </div>
         </form>
+        <button id="clearSearch">Clear</button>
         
-
         
-        <p>Here are some employees:</p>
         <span class="employee-header-container">
-            <span>
+            <!-- <span class=""> -->
                 <p><strong>First Name</strong></p>
-                <a href="{{ url_for('index', search=search_query, sort='first_name', direction='asc') }}">↑</a>
-                <a href="{{ url_for('index', search=search_query, sort='first_name', direction='desc') }}">↓</a>
-            </span>
+                <!-- <a href="{{ url_for('index', search=search_query, sort='first_name', direction='asc') }}">↑</a> -->
+                <!-- <a href="{{ url_for('index', search=search_query, sort='first_name', direction='desc') }}">↓</a> -->
+            <!-- </span> -->
             <p><strong>Last Name</strong></p>
             <p><strong>Position</strong></p>
             <p><strong>District</strong></p>
@@ -59,11 +86,9 @@
             {% endif %}
         </div>
     
-        <a href="{{ url_for('index', page=pagination.prev_num, search=search_query, sort=sort_field, direction=sort_direction) }}">Previous</a>
-        <!-- Other pagination links -->
-        <a href="{{ url_for('index', page=pagination.next_num, search=search_query, sort=sort_field, direction=sort_direction) }}">Next</a>
-    
     
     </main>
 </body>
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+
 </html>
